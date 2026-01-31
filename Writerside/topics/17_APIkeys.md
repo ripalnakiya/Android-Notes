@@ -6,7 +6,7 @@ We can use `local.properties` to store API keys and other sensitive information.
 
 **local.properties**
 
-```properties
+```Properties
 API_KEY=MyAPIKeyInLocalProperties
 ```
 
@@ -111,7 +111,7 @@ Right click on the error and select **"Create JNI function for getApiKey()"**
 
 **Step 6** : Now the code will look like this
 
-```cpp
+```C++
 #include <jni.h>
 // Some Comments
 extern "C"
@@ -123,7 +123,7 @@ Java_com_ripalnakiya_apikeysndk_MainActivity_getApiKey(JNIEnv *env, jobject thiz
 
 **Step 7** : Now we need to return the API key from this function. So replace the comment with the following code
 
-```cpp
+```C++
 jstring API_KEY = (jstring) "MyAPIKeyInNDK";
 return env->NewStringUTF(reinterpret_cast<const char *>(API_KEY));
 ```

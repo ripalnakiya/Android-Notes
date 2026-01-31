@@ -192,13 +192,13 @@ When activities belong to the **same task**, they are part of the same workflow 
 
 The task stack is a Last In, First Out (LIFO) structure, meaning the last activity added to the stack is the first one to be removed when the user navigates backward.
 
-```sh
+```shell
 Task Stack: A -> B -> C
 ```
 
 When activities belong to **different tasks**, they are independent of each other and have their own task stacks. Activities in different tasks cannot influence each other's behavior directly.
 
-```sh
+```shell
 Task Stack in App 1: A -> B -> C
 Task Stack in App 2: D
 ```
@@ -221,13 +221,13 @@ It creates a new instance of an activity in the task from which it was started.
 
 **State of Activity Stack before launch B**
 
-```sh
+```shell
 A -> B -> C -> D
 ```
 
 **State of Activity Stack after launch B**
 
-```sh
+```shell
 A -> B -> C -> D -> B
 ```
 
@@ -239,13 +239,13 @@ If an instance is not present on top of task then new instance will be created.
 
 **State of Activity Stack before launch D**
 
-```sh
+```shell
 A -> B -> C -> D
 ```
 
 **State of Activity Stack after launch D activity**
 
-```sh
+```shell
 A -> B -> C -> D
 ```
 
@@ -261,13 +261,13 @@ The singleTask launch mode is used to ensure that only one instance of the activ
 
 **State of Activity Stack before launch B**
 
-```sh
+```shell
 A -> B -> C -> D
 ```
 
 **State of Activity Stack after launch B activity**
 
-```sh
+```shell
 A -> B
 ```
 
@@ -285,20 +285,20 @@ Suppose, activity D has “launch mode = singleInstance”
 
 **State of Activity Stack before launch D**
 
-```sh
+```shell
 A -> B -> C
 ```
 
 **State of Activity Stack after launch D activity**
 
-```sh
+```shell
 Task1 — A -> B -> C
 Task2 — D (here D will be in different task)
 ```
 
 **Continue this and start E on D**
 
-```sh
+```shell
 Task1 — A -> B -> C -> E
 Task2 — D
 ```
