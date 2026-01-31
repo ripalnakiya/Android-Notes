@@ -9,7 +9,7 @@
 
 ### Write to a file:
 
-```java
+```Java
 FileOutputStream fos = null;
 
 fos = openFileOutput(FILE_NAME, MODE_PRIVATE);
@@ -25,7 +25,7 @@ if(fos != null) {
 
 ### Read from a file:
 
-```java
+```Java
 FileInputStream fin = null;
 
 fin = openFileInput(FILE_NAME);
@@ -51,7 +51,7 @@ SharedPreferences are commonly used for saving **application settings**, **user 
 
 ### Writing to Shared Preference
 
-```java
+```Java
 SharedPreferences sharedPreferences = getSharedPreferences("login", MODE_PRIVATE);
 SharedPreferences.Editor editor = sharedPreferences.edit();
 editor.putBoolean("flag", true);
@@ -60,7 +60,7 @@ editor.apply();
 
 ### Reading from Shared Preference
 
-```java
+```Java
 SharedPreferences sharedPreferences = getSharedPreferences("login", MODE_PRIVATE);
 boolean check = sharedPreferences.getBoolean("flag", false);    // getBoolean(key, defaultValue)
 ```

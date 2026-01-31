@@ -8,12 +8,12 @@ It is a **messaging object** used to request an operation or to communicate betw
 
 An explicit intent is one that you use to launch a **specific app component**, such as a particular activity or service in our app or in the other app.
 
-```java
+```Java
 Intent intent = new Intent(this, SecondActivity.class);
 startActivity(intent);
 ```
 
-```java
+```Java
 Intent intent = new Intent(Intent.ACTION_VIEW);
 intent.setData(Uri.parse("https://www.youtube.com/watch?v=2hIY1xuImuQ"));
 intent.setPackage("com.google.android.youtube");
@@ -24,7 +24,7 @@ startActivity(intent);
 
 An implicit intent is one that the system uses to **determine which component to start** by comparing the contents of the intent to the intent filters declared in the manifest file of other apps on the device.
 
-```java
+```Java
 Intent intent = new Intent();
 intent.setAction(Intent.ACTION_SEND);
 
@@ -55,7 +55,7 @@ Firstly, add this intent filter in the manifest file of the activity that you wa
 </intent-filter>
 ```
 
-```java
+```Java
 Intent intent = getIntent();
 
 String Iemail = Arrays.toString(intent.getStringArrayExtra(Intent.EXTRA_EMAIL)) ;
@@ -69,7 +69,7 @@ A PendingIntent in Android **is a token** that you give to a **foreign applicati
 
 Pending Intent is same as Intent, but to be triggered at later point in time by some one else (Operating System)
 
-```java
+```Java
 Intent intent = new Intent(context, MyActivity.class);
 PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, 0);
 ```

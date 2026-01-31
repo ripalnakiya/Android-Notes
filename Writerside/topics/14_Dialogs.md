@@ -4,7 +4,7 @@
 
 ## Custom Dialog
 
-```java
+```Java
 Dialog dialog = new Dialog(MainActivity.this);
 dialog.setContentView(R.layout.custom_dialog_layout);
 // Dialog boxes are closed by default when we click on the screen outside the dialog box.
@@ -25,7 +25,7 @@ dialog.show();
 
 # Custom Alert Dialog
 
-```java
+```Java
 // Create a view for the dialog box by inflating the layout
 View dialogView = LayoutInflater.from(context).inflate(R.layout.add_update_dialog, null);
 // We can access the views of the dialog box using the dialogView object

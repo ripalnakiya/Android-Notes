@@ -8,7 +8,7 @@ Almost all activities interact with the user, so the Activity class takes care o
 
 ## Activity Lifecycle
 
-![Activity Lifecycle](../Images/activity_lifecycle.png)
+![Activity Lifecycle](../images/activity_lifecycle.png)
 
 The Activity class provides the following callbacks that you can override to perform actions when the corresponding event occurs:
 

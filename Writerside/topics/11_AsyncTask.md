@@ -2,7 +2,7 @@
 
 **Starting AsyncTask**
 
-```java
+```Java
 ExampleAsyncTask task = new ExampleAsyncTask(this);
 task.execute(10);
 ```
@@ -22,7 +22,7 @@ Three Paramters of AsyncTask:
 - Progress: Type of the progress units published during the background computation
 - Result: Type of the result of the background computation
 
-```java
+```Java
 private static class ExampleAsyncTask extends AsyncTask<Integer, Integer, String> {
     private WeakReference<MainActivity> activityWeakReference ;
     ExampleAsyncTask(MainActivity activity) {

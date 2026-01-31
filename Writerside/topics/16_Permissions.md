@@ -57,7 +57,7 @@ A permission that the system grants **only if the requesting application is sign
 
 **Single Permission:**
 
-```java
+```Java
 requestPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS);
 
 private final ActivityResultLauncher<String> requestPermissionLauncher =
@@ -73,7 +73,7 @@ private final ActivityResultLauncher<String> requestPermissionLauncher =
 
 **Grouped Permissions:**
 
-```java
+```Java
 private final String[] permissions = {
         Manifest.permission.READ_CONTACTS,
         Manifest.permission.WRITE_CONTACTS

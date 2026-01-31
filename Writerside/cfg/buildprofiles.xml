@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE buildprofiles SYSTEM "https://resources.jetbrains.com/writerside/1.0/build-profiles.dtd">
+<buildprofiles xsi:noNamespaceSchemaLocation="https://resources.jetbrains.com/writerside/1.0/build-profiles.xsd"
+               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+    <variables>
+        <header-logo>my-logo.png</header-logo>
+        <custom-favicons>fevicon.png</custom-favicons>
+
+        <primary-color>aqua</primary-color>
+
+        <download-title>Visit Website</download-title>
+        <download-page>https://ripalnakiya.github.io/</download-page>
+        <showDownloadButton>true</showDownloadButton>
+    </variables>
+
+    <build-profile instance="an">
+        <variables>
+            <noindex-content>true</noindex-content>
+        </variables>
+    </build-profile>
+
+</buildprofiles>

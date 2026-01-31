@@ -8,7 +8,7 @@ Fragments can't live on their own. They **must be hosted by an activity** or **a
 
 Fragments introduce **modularity and reusability into your activity’s UI** by letting you divide the UI into discrete chunks.
 
-![Fragment Lifecycle](../Images/fragment_lifecycle.png)
+![Fragment Lifecycle](../images/fragment_lifecycle.png)
 
 ## Creating and Using Fragments
 
@@ -23,7 +23,7 @@ Create a container in Activity's layout file to host the fragment.
 
 Use FragmentManager to add, replace, or remove fragments from the activity.
 
-```java
+```Java
 // Get Fragment Manager
 FragmentManager fragmentManager = getSupportFragmentManager();
 
@@ -48,7 +48,7 @@ fragmentTransaction.commit();
 
 **MainActivity.java**
 
-```java
+```Java
 FragmentManager fragmentManager = getSupportFragmentManager();
 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
@@ -64,7 +64,7 @@ fragmentTransaction.commit();
 
 **FirstFragment.java -> onCreateView()**
 
-```java
+```Java
 String str = "";
 if (getArguments() != null) {
     str = getArguments().getString("num");

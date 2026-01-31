@@ -2,14 +2,14 @@
 
 **Starting a thread**
 
-```java
+```Java
 ExampleRunnable exampleRunnable = new ExampleRunnable();
 new Thread(exampleRunnable).start();
 ```
 
 **Runnable**
 
-```java
+```Java
 public class ExampleRunnable implements Runnable {
     @Override
     public void run() {

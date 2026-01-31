@@ -10,7 +10,7 @@ Notifications are a way for apps to alert users about important events or inform
 
 ## Notification Channel
 
-```java
+```Java
 NotificationChannel notificationChannel = new NotificationChannel(CHANNEL_ID, "NEWS", NotificationManager.IMPORTANCE_DEFAULT);
 notificationChannel.setDescription("Get latest news");
 
@@ -20,7 +20,7 @@ notificationManager.createNotificationChannel(notificationChannel);
 
 ## Create Notification
 
-```java
+```Java
 Intent intent = new Intent(this, MainActivity.class);
 PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_IMMUTABLE);
 
@@ -40,7 +40,7 @@ Notification.Builder builder = new Notification.Builder(this, CHANNEL_ID)
 
 ## Show Notification
 
-```java
+```Java
 NotificationManager notificationManager = getSystemService(NotificationManager.class);
 notificationManager.notify(id, notification);
 ```

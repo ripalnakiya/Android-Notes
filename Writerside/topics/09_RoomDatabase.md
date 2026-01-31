@@ -2,7 +2,7 @@
 
 Firstly create a Entity class, which will be a table in the database.
 
-```java
+```Java
 @Entity(tableName = "note_table")
 public class Note {
     @PrimaryKey(autoGenerate = true)
@@ -20,7 +20,7 @@ public class Note {
 
 Then create a Dao interface, which will be used to access the database.
 
-```java
+```Java
 @Dao
 public interface NoteDao {
     @Query("SELECT * FROM note_table ORDER BY priority DESC")
@@ -39,7 +39,7 @@ public interface NoteDao {
 
 Now, create a Database class, which will be used to create the database.
 
-```java
+```Java
 @Database(entities = {Note.class}, version = 1)
 public abstract class NoteDatabase extends RoomDatabase {
     public static NoteDatabase instance = null;
@@ -59,7 +59,7 @@ public abstract class NoteDatabase extends RoomDatabase {
 
 We can add a **Callback** to Populate the database with some data when it is created.
 
-```java
+```Java
 private static RoomDatabase.Callback roomCallback = new RoomDatabase.Callback(){
     @Override
     public void onCreate(@NonNull SupportSQLiteDatabase db) {

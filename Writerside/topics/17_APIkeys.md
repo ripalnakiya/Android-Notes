@@ -13,14 +13,14 @@ API_KEY=MyAPIKeyInLocalProperties
 l̥
 **build.gradle**
 
-```kotlin
+```Kotlin
 // Make this section buildFeatures, and set buildConfig to true
 buildFeatures {
     buildConfig = true
 }
 ```
 
-```kotlin
+```Kotlin
 defaultConfig {
     // Get values from local.properties
     val properties = Properties()   // Properties of java.util
@@ -32,7 +32,7 @@ defaultConfig {
 l̥
 **MainActivity.java**
 
-```java
+```Java
 String API_KEY = BuildConfig.API_KEY
 ```
 
@@ -46,7 +46,7 @@ In order to do this, **set isMinifyEnabled to true** in the build.gradle file.
 
 **build.gradle**
 
-```kotlin
+```Kotlin
 buildTypes {
     release {
         isMinifyEnabled = true
@@ -70,7 +70,7 @@ This will generate two files required
 
 And this will also add the following code in build.gradle
 
-```kotlin
+```Kotlin
 defaultConfig {
     externalNativeBuild {
         cmake {
@@ -80,7 +80,7 @@ defaultConfig {
 }
 ```
 
-```kotlin
+```Kotlin
 externalNativeBuild {
     cmake {
         path = file("src/main/cpp/CMakeLists.txt")
@@ -91,7 +91,7 @@ externalNativeBuild {
 
 **Step 4** : Add this code in MainActivity to dynamically load the C++ library into our application
 
-```java
+```Java
 static {
     System.loadLibrary("native-lib");
 }
@@ -99,7 +99,7 @@ static {
 
 **Step 5** : Now write this line of code
 
-```java
+```Java
 public native String getApiKey();
 ```
 
@@ -130,6 +130,6 @@ return env->NewStringUTF(reinterpret_cast<const char *>(API_KEY));
 
 **Step 8** : Now we can use this API key in our MainActivity.java file
 
-```java
+```Java
 String API_KEY = getApiKey();
 ```

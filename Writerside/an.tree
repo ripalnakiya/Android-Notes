@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE instance-profile
+        SYSTEM "https://resources.jetbrains.com/writerside/1.0/product-profile.dtd">
+
+<instance-profile id="an"
+                 name="Android Notes"
+                 start-page="01_Introduction.md">
+
+    <toc-element topic="01_Introduction.md"/>
+    <toc-element topic="02_AppComponents.md"/>
+    <toc-element topic="03_Intent.md"/>
+    <toc-element topic="04_Activities.md"/>
+    <toc-element topic="05_Fragments.md"/>
+    <toc-element topic="06_Services.md"/>
+    <toc-element topic="07_Broadcast.md"/>
+    <toc-element topic="08_DataPersistance.md"/>
+    <toc-element topic="09_RoomDatabase.md"/>
+    <toc-element topic="10_Multithreading.md"/>
+    <toc-element topic="11_AsyncTask.md"/>
+    <toc-element topic="12_Retrofit.md"/>
+    <toc-element topic="13_ButtonListeners.md"/>
+    <toc-element topic="14_Dialogs.md"/>
+    <toc-element topic="15_Notification.md"/>
+    <toc-element topic="16_Permissions.md"/>
+    <toc-element topic="17_APIkeys.md"/>
+    <toc-element topic="18_AlarmManager.md"/>
+    <toc-element topic="19_WorkManager.md"/>
+    <toc-element topic="20_ViewModelAndLiveData.md"/>
+    <toc-element topic="21_JetpackCompose.md"/>
+
+</instance-profile>

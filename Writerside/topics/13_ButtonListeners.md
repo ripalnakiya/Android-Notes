@@ -4,7 +4,7 @@
 
 > Using Anonymous Inner Class
 
-```java
+```Java
 public class MainActivity extends AppCompatActivity {
     buttonStart.setOnClickListener(new View.OnClickListener() {
         @Override
@@ -19,7 +19,7 @@ public class MainActivity extends AppCompatActivity {
 
 > Using Lambda expressions
 
-```java
+```Java
 public class MainActivity extends AppCompatActivity {
     buttonStart.setOnClickListener(view -> {
     // DO SOMETHING
@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
 
 > Using Method Reference
 
-```java
+```Java
 public class MainActivity extends AppCompatActivity {
     buttonStart.setOnClickListener(this::onClick);
 }
@@ -46,7 +46,7 @@ private void onClick(View v) {
 
 > Using Activity as Listener (Implements View.OnClickListener)
 
-```java
+```Java
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     buttonStart.setOnClickListener(this);
 }
@@ -62,7 +62,7 @@ public void onClick(View v) {
 
 > Using View.OnClickListener as Listener
 
-```java
+```Java
 public class MainActivity extends AppCompatActivity {
     buttonStart.setOnClickListener(onClickListener);
 }
@@ -80,7 +80,7 @@ View.OnClickListener onClickListener = new View.OnClickListener() {
 
 > Using View.OnClickListener as Listener (Lambda)
 
-```java
+```Java
 public class MainActivity extends AppCompatActivity {
     buttonStart.setOnClickListener(onClickListener);
 }

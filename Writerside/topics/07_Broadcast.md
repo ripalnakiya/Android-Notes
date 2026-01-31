@@ -24,7 +24,7 @@ A **broadcast receiver** is an Android component that **allows the registration 
 
 **Registering the Receiver Dynamically:**
 
-```java
+```Java
 // For connectivity change, use
 IntentFilter filter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
 
@@ -36,7 +36,7 @@ registerReceiver(airplaneModeChangeReceiver, filter);
 
 **Broadcast Receiver:**
 
-```java
+```Java
 public void onReceive(Context context, Intent intent) {
 
     if(intent.getAction() == ConnectivityManager.CONNECTIVITY_ACTION) {
@@ -54,7 +54,7 @@ public void onReceive(Context context, Intent intent) {
 
 **Unregistering the Receiver:**
 
-```java
+```Java
 unregisterReceiver(airplaneModeChangeReceiver);
 ```
 
@@ -64,7 +64,7 @@ unregisterReceiver(airplaneModeChangeReceiver);
 
 **APP Sending Custom Broadcast:**
 
-```java
+```Java
 Intent intent = new Intent();
 intent.setAction("com.example.custombroadcast.ACTION_CUSTOM");
 sendBroadcast(intent);
@@ -74,7 +74,7 @@ sendBroadcast(intent);
 
 Registering the receiver:
 
-```java
+```Java
 CustomBroadcastReceiver customBroadcastReceiver = new CustomBroadcastReceiver();
 
 IntentFilter filter = new IntentFilter();
@@ -89,6 +89,6 @@ Broadcast Receiver:
 
 Unregistering the receiver:
 
-```java
+```Java
 unregisterReceiver(customBroadcastReceiver);
 ```

@@ -24,7 +24,7 @@ WorkManager handles three types of persistent work:
 
 - Deferrable: Scheduled tasks that start at a later time and can run periodically.
 
-![Work Manager](../Images/workmanager_main.svg)
+![Work Manager](../images/workmanager_main.svg)
 
 ## Use WorkManager for reliable work
 
@@ -41,7 +41,7 @@ It is also not a general solution for all work that requires immediate execution
 
 **Define MyWorker class** that **extends Worker class** and **override doWork()** method.
 
-```java
+```Java
 public class MyWorker extends Worker {
     private static final String TAG = "MyWorker";
     public MyWorker(@NonNull Context context, @NonNull WorkerParameters workerParams) {
@@ -72,7 +72,7 @@ public class MyWorker extends Worker {
 
 **In MainActivity.java, Initial setup :**
 
-```java
+```Java
 Data data = new Data.Builder()
         .putInt("number", 10)
         .build();
@@ -86,7 +86,7 @@ Constraints constraints = new Constraints.Builder()
 
 **Enqueue the one time work request :**
 
-```java
+```Java
 
 OneTimeWorkRequest oneTimeWorkRequest = new OneTimeWorkRequest.Builder(MyWorker.class)
         .setInputData(data)
@@ -100,7 +100,7 @@ WorkManager.getInstance(this).enqueue(oneTimeWorkRequest);
 
 **Enqueue the periodic work request :**
 
-```java
+```Java
 PeriodicWorkRequest periodicWorkRequest = new PeriodicWorkRequest.Builder(MyWorker.class, 3, TimeUnit.DAYS)
         .setInputData(data)
         .setConstraints(constraints)
@@ -113,13 +113,13 @@ WorkManager.getInstance(this).enqueue(periodicWorkRequest);
 
 **Cancel the work request :**
 
-```java
+```Java
 WorkManager.getInstance(this).cancelWorkById(periodicWorkRequest.getId());
 ```
 
 **Chaining Multiple Work :**
 
-```java
+```Java
 WorkManager.getInstance(this).beginWith(oneTimeWorkRequest)
         .then(oneTimeWorkRequest2)
         .enqueue();

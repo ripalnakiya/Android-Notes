@@ -71,21 +71,21 @@ For example,
 
 **It is used for accessing Resources**
 
-```java
+```Java
 // Accessing a string resource
 String appName = context.getString(R.string.app_name);
 ```
 
 **It is used for accessing System Services**
 
-```java
+```Java
 // Accessing the Alarm Service
 AlarmManager alarmManager = getSystemService(AlarmManager.class);
 ```
 
 **It is used for accessing App Components**
 
-```java
+```Java
 // Starting an Activity
 Intent intent = new Intent(context, MainActivity.class);
 context.startActivity(intent);

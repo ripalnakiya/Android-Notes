@@ -60,14 +60,14 @@ IntentService **runs on a single background thread**, so if you have multiple re
 
 **MainActivity.java**
 
-```java
+```Java
 Intent intent = new Intent(MainActivity.this, MyIntentService.class);
 startService(intent);
 ```
 
 **MyIntentService.java**
 
-```java
+```Java
 public class MyIntentService extends IntentService {
     private static final String TAG = "MyIntentService";
     public static final String name = "IntentWorker";

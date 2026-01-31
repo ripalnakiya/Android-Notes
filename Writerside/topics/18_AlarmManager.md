@@ -2,7 +2,7 @@
 
 **Show the time picker dialog:**
 
-```java
+```Java
 Calendar calendar = Calendar.getInstance();
 int hour = calendar.get(Calendar.HOUR_OF_DAY);
 int minute = calendar.get(Calendar.MINUTE);
@@ -24,7 +24,7 @@ timePickerDialog.show();
 
 **Set the alarm:**
 
-```java
+```Java
 Intent intent = new Intent(this, AlarmReceiver.class);
 PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 1, intent, PendingIntent.FLAG_MUTABLE);
 
