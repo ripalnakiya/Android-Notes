@@ -6,7 +6,7 @@ We can use `local.properties` to store API keys and other sensitive information.
 
 **local.properties**
 
-```Properties
+```shell
 API_KEY=MyAPIKeyInLocalProperties
 ```
 
