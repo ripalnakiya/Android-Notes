@@ -1,8 +1,6 @@
 # Button Listeners
 
-## Method 1
-
-> Using Anonymous Inner Class
+## 1. Anonymous Inner Class
 
 ```Java
 public class MainActivity extends AppCompatActivity {
@@ -15,9 +13,7 @@ public class MainActivity extends AppCompatActivity {
 }
 ```
 
-## Method 2
-
-> Using Lambda expressions
+## 2. Lambda expressions
 
 ```Java
 public class MainActivity extends AppCompatActivity {
@@ -27,9 +23,7 @@ public class MainActivity extends AppCompatActivity {
 }
 ```
 
-## Method 3
-
-> Using Method Reference
+## 3. Method Reference
 
 ```Java
 public class MainActivity extends AppCompatActivity {
@@ -42,25 +36,8 @@ private void onClick(View v) {
 }
 ```
 
-## Method 4
 
-> Using Activity as Listener (Implements View.OnClickListener)
-
-```Java
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
-    buttonStart.setOnClickListener(this);
-}
-
-@Override
-public void onClick(View v) {
-    int id = v.getId();
-    // DO SOMETHING
-}
-```
-
-## Method 5
-
-> Using View.OnClickListener as Listener
+## 4. Interface Object
 
 ```Java
 public class MainActivity extends AppCompatActivity {
@@ -76,9 +53,7 @@ View.OnClickListener onClickListener = new View.OnClickListener() {
 };
 ```
 
-## Method 6
-
-> Using View.OnClickListener as Listener (Lambda)
+## 5. Interface Object (Lambda)
 
 ```Java
 public class MainActivity extends AppCompatActivity {
@@ -89,4 +64,20 @@ View.OnClickListener onClickListener = v -> {
     int id = v.getId();
     // DO SOMETHING
 };
+```
+
+## 6. Interface in Activity
+
+Implements `View.OnClickListener` interface.
+
+```Java
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+    buttonStart.setOnClickListener(this);
+}
+
+@Override
+public void onClick(View v) {
+    int id = v.getId();
+    // DO SOMETHING
+}
 ```

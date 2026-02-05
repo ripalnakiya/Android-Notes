@@ -9,18 +9,16 @@ task.execute(10);
 
 **AsyncTask**
 
-There are four methods in AsyncTask:
+- There are four methods in AsyncTask:
+  - onPreExecute()
+  - doInBackground()
+  - onProgressUpdate()
+  - onPostExecute()
 
-- onPreExecute()
-- doInBackground()
-- onProgressUpdate()
-- onPostExecute()
-
-Three Paramters of AsyncTask:
-
-- Params: Type of the parameters sent to the task upon execution
-- Progress: Type of the progress units published during the background computation
-- Result: Type of the result of the background computation
+- Three Parameters of AsyncTask:
+  - Params: Type of the parameters sent to the task upon execution
+  - Progress: Type of the progress units published during the background computation
+  - Result: Type of the result of the background computation
 
 ```Java
 private static class ExampleAsyncTask extends AsyncTask<Integer, Integer, String> {
@@ -106,3 +104,10 @@ private static class ExampleAsyncTask extends AsyncTask<Integer, Integer, String
     }
 }
 ```
+
+## Summary
+
+- Easy
+- Leaky
+- Lifecycle-unaware
+- Deprecated

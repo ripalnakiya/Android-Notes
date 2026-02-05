@@ -4,28 +4,49 @@
 
 <instance-profile id="an"
                  name="Android Notes"
-                 start-page="01_Introduction.md">
+                 start-page="01-fundamentals.md">
 
-    <toc-element topic="01_Introduction.md"/>
-    <toc-element topic="02_AppComponents.md"/>
-    <toc-element topic="03_Intent.md"/>
-    <toc-element topic="04_Activities.md"/>
-    <toc-element topic="05_Fragments.md"/>
-    <toc-element topic="06_Services.md"/>
-    <toc-element topic="07_Broadcast.md"/>
-    <toc-element topic="08_DataPersistance.md"/>
-    <toc-element topic="09_RoomDatabase.md"/>
-    <toc-element topic="10_Multithreading.md"/>
-    <toc-element topic="11_AsyncTask.md"/>
-    <toc-element topic="12_Retrofit.md"/>
-    <toc-element topic="13_ButtonListeners.md"/>
-    <toc-element topic="14_Dialogs.md"/>
-    <toc-element topic="15_Notification.md"/>
-    <toc-element topic="16_Permissions.md"/>
-    <toc-element topic="17_APIkeys.md"/>
-    <toc-element topic="18_AlarmManager.md"/>
-    <toc-element topic="19_WorkManager.md"/>
-    <toc-element topic="20_ViewModelAndLiveData.md"/>
-    <toc-element topic="21_JetpackCompose.md"/>
+    <toc-element topic="01-fundamentals.md"/>
+
+    <toc-element topic="01-core-components.md">
+        <toc-element topic="02-intents.md"/>
+        <toc-element topic="03-activities.md"/>
+        <toc-element topic="04-fragments.md"/>
+        <toc-element topic="05-services.md"/>
+        <toc-element topic="06-broadcast-receivers.md"/>
+        <toc-element topic="07-content-providers.md"/>
+    </toc-element>
+
+    <toc-element topic="01-data-persistence.md">
+        <toc-element topic="02-roomDB.md"/>
+    </toc-element>
+
+    <toc-element topic="01-multithreading.md">
+        <toc-element topic="02-AsyncTask.md"/>
+    </toc-element>
+
+    <toc-element toc-title="Other Components">
+        <toc-element topic="01-button-listeners.md"/>
+        <toc-element topic="02-dialogs.md"/>
+        <toc-element topic="03-notifications.md"/>
+        <toc-element topic="04-AlarmManager.md"/>
+        <toc-element topic="05-WorkManager.md"/>
+    </toc-element>
+
+    <toc-element toc-title="Performance &amp; Security">
+        <toc-element topic="01-performance-issues.md"/>
+        <toc-element topic="02-permissions.md"/>
+        <toc-element topic="03-API-keys.md"/>
+        <toc-element topic="04-reducing-app-size.md"/>
+    </toc-element>
+
+    <toc-element topic="01-architectural-patterns.md">
+        <toc-element topic="02-mvvm.md"/>
+        <toc-element topic="03-design-principles.md"/>
+    </toc-element>
+
+    <toc-element topic="08-retrofit.md"/>
+
+    <toc-element topic="09-jetpack-compose.md"/>
 
 </instance-profile>

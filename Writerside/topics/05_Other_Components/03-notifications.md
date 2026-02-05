@@ -1,6 +1,7 @@
-# Notification
+# Notifications
 
-Notifications are a way for apps to alert users about important events or information even when the app is not actively in use.
+Notifications are a way for apps to **alert users about important events or 
+information** even when the app is not actively in use.
 
 ## Manifest Permission
 

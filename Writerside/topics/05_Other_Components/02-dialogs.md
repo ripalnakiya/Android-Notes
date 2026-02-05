@@ -23,7 +23,7 @@ buttonOkay.setOnClickListener(view -> {
 dialog.show();
 ```
 
-# Custom Alert Dialog
+## Custom Alert Dialog
 
 ```Java
 // Create a view for the dialog box by inflating the layout

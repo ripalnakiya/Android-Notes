@@ -1,4 +1,4 @@
-# Data Persistance
+# Data Persistence
 
 - File I/O
 - Shared Preferences
@@ -16,7 +16,9 @@ fos = openFileOutput(FILE_NAME, MODE_PRIVATE);
 
 fos.write(text.getBytes());
 
-Toast.makeText(this, "Saved to " + getFilesDir() + "/" + FILE_NAME , Toast.LENGTH_SHORT).show();
+Toast.makeText(this, 
+    "Saved to " + getFilesDir() + "/" + FILE_NAME , Toast.LENGTH_SHORT)
+    .show();
 
 if(fos != null) {
         fos.close();
@@ -45,15 +47,19 @@ if(fin != null) {
 
 ## Shared Preference
 
-It is simple **key-value storage system** that allows you to **store and retrieve primitive data** types (such as boolean, float, int, long, String) in a persistent way.
+It is simple **key-value storage system** 
+that allows you to **store and retrieve primitive data** types 
+(such as boolean, float, int, long, String) in a persistent way.
 
-SharedPreferences are commonly used for saving **application settings**, **user preferences**, and other small pieces of data that need to be persisted between app sessions.
+SharedPreferences are commonly used for saving 
+**application settings**, **user preferences**, 
+and other small pieces of data that need to be persisted between app sessions.
 
 ### Writing to Shared Preference
 
 ```Java
-SharedPreferences sharedPreferences = getSharedPreferences("login", MODE_PRIVATE);
-SharedPreferences.Editor editor = sharedPreferences.edit();
+SharedPreferences prefs = getSharedPreferences("login", MODE_PRIVATE);
+SharedPreferences.Editor editor = prefs.edit();
 editor.putBoolean("flag", true);
 editor.apply();
 ```
@@ -61,6 +67,7 @@ editor.apply();
 ### Reading from Shared Preference
 
 ```Java
-SharedPreferences sharedPreferences = getSharedPreferences("login", MODE_PRIVATE);
-boolean check = sharedPreferences.getBoolean("flag", false);    // getBoolean(key, defaultValue)
+SharedPreferences prefs = getSharedPreferences("login", MODE_PRIVATE);
+boolean check = sharedPreferences.getBoolean("flag", false);    
+                                // getBoolean(key, defaultValue)
 ```
