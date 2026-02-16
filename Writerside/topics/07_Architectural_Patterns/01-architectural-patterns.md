@@ -1,5 +1,9 @@
 # Architectural Patterns
 
+- Architecture patterns mainly focuses on:
+  - Separation of concerns
+  - Unit testing
+
 ## 1. MVC (Model–View–Controller)
 
 - Idea
