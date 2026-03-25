@@ -45,8 +45,6 @@
         <toc-element topic="03-design-principles.md"/>
     </toc-element>
 
-    <toc-element topic="08-retrofit.md"/>
-
-    <toc-element topic="09-jetpack-compose.md"/>
+    <toc-element topic="08-jni.md"/>
 
 </instance-profile>

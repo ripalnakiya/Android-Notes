@@ -59,14 +59,14 @@ buildTypes {
 
 **Step 1** : Set Project view in the Android Studio
 
-**Step 2** : go to app -> src -> main
+**Step 2** : go to app > src > main
 
 **Step 3** : Right click on main, and select "Add C++ to module" from context menu
 
 This will generate two files required
 
-1. CMakeLists.txt
-2. native-lib.cpp (other name can be used in place of 'native-lib')
+1. `CMakeLists.txt`
+2. `native-lib.cpp` (other name can be used in place of `native-lib`)
 
 And this will also add the following code in build.gradle
 
@@ -78,9 +78,7 @@ defaultConfig {
         }
     }
 }
-```
 
-```Kotlin
 externalNativeBuild {
     cmake {
         path = file("src/main/cpp/CMakeLists.txt")
@@ -89,7 +87,7 @@ externalNativeBuild {
 }
 ```
 
-**Step 4** : Add this code in MainActivity to dynamically load the C++ library into our application
+**Step 4** : Add this code in `MainActivity` to dynamically load the C++ library into our application
 
 ```Java
 static {
@@ -103,7 +101,7 @@ static {
 public native String getApiKey();
 ```
 
-At this point, **getApiKey()** will return null, **We need to implement it in native-lib.cpp**.
+At this point, `getApiKey()` will return null, **We need to implement it in native-lib.cpp**.
 
 IDE will show an error on this line, because we have not implemented it yet.
 
@@ -128,7 +126,7 @@ jstring API_KEY = (jstring) "MyAPIKeyInNDK";
 return env->NewStringUTF(reinterpret_cast<const char *>(API_KEY));
 ```
 
-**Step 8** : Now we can use this API key in our MainActivity.java file
+**Step 8** : Now we can use this API key in our `MainActivity.java` file
 
 ```Java
 String API_KEY = getApiKey();
