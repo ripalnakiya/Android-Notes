@@ -58,7 +58,7 @@ To create a plain text file that you can use as your CMake build script, proceed
 
 Add the below code in your `CMakeLists.txt`:
 
-```plain text
+```CMake
 # Sets the minimum version of CMake required to build your native library.
 # This ensures that a certain set of CMake features is available to
 # your build.
