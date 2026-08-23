@@ -109,7 +109,7 @@ class MainActivity : AppCompatActivity() {
 
 ### @Module: The “Recipe Book”
 
-A @Module is a specialized “instruction manual” class used to tell 
+A `@Module` is a specialized “instruction manual” class used to tell 
 Hilt how to provide objects that it cannot create automatically. 
 
 It is essential for providing instances of interfaces (which have no constructor) 
@@ -236,7 +236,7 @@ class MainActivity : AppCompatActivity() {
 class MyApplication: Application() {
 
     @Inject
-    lateinit var userRepository: UserRepository /* UserRepository won't be accessible here since, UserModule is Installed in ActivityScope */
+    lateinit var userRepository: UserRepository /* UserRepository won't be accessible here since, UserModule is Installed in ActivityComponent */
 }
 ```
 
@@ -249,7 +249,7 @@ class MyApplication: Application() {
 
 It is more performant because Hilt doesn't generate a separate factory class for it.
 
-> The @Binds annotation tells Hilt which implementation to use when it needs to provide an instance of an interface.
+> The `@Binds` annotation tells Hilt which implementation to use when it needs to provide an instance of an interface.
 
 ```kotlin
 @Module
@@ -549,7 +549,7 @@ as well as any default bindings from an ancestor component.
 | `ViewModelComponent`        | `SavedStateHandle`, `ViewModelLifecycle` |
 | `ActivityComponent`         | `Activity`, `FragmentActivity`           |
 | `FragmentComponent`         | `Fragment`                               |
-| `ServiceComponent`          | `Application`, `Service`                 |
+| `ServiceComponent`          | `Service`                                |
 
 The application context binding is also available using `@ApplicationContext`. For example:
 
