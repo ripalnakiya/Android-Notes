@@ -1,0 +1,698 @@
+# Hilt Annotations
+<show-structure depth="2"/>
+
+## @HiltAndroidApp (The Ignition)
+
+All apps that use Hilt must contain an Application class that is annotated with `@HiltAndroidApp`.
+
+
+This annotation goes on your Application class. 
+It is the trigger that tells Hilt to start generating all the “Smart Factory” code in the background. 
+
+Without this, Hilt won’t work.
+
+**Usage**: Mandatory for the Application class.
+
+**What it does**: Creates the root container of your app.
+
+```kotlin
+@HiltAndroidApp
+class MyApplication: Application() {
+    // Hilt code generation starts here!
+}
+```
+
+## @AndroidEntryPoint (The Door)
+
+This annotation “unlocks” Android framework classes (Activities, Fragments, Views, Services) 
+so Hilt can inject dependencies into them.
+
+**Usage**: Used for classes that are instantiated by the Android OS.
+
+**What it does**: Allows you to **use Field Injection** inside these classes.
+
+```kotlin
+@AndroidEntryPoint
+class MainActivity : AppCompatActivity() {
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+    }
+}
+```
+
+```kotlin
+/**
+ * We also need to annotate the activity, on which this fragment is hosted, using @AndroidEntryPoint.
+ * Even if that particular activity doesn't use any hilt's binding directly.
+ */
+@AndroidEntryPoint
+class MainFragment : Fragment() {
+    
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        return inflater.inflate(R.layout.fragment_main, container, false)
+    }
+}
+```
+
+## @Inject (The Request)
+
+This is the most common annotation. 
+
+It is used in two ways:
+- Constructor Injection: Tells Hilt **how to create an instance** of a class.
+- Field Injection: Tells Hilt **to populate a specific variable**.
+
+```kotlin
+/**
+ * Constructor injection: Use the @Inject annotation on the constructor of a class 
+ * to tell Hilt how to provide instances of that class.
+ */
+class LoggerService @Inject constructor() {
+
+    fun log(message: String) {
+        Log.d(TAG, "log: $message")
+    }
+}
+
+/**
+ * Constructor injection: @Inject on a constructor tells Hilt that it can use that constructor to create the class,
+ * and the constructor parameters become dependencies that Hilt must resolve.
+ */
+class UserRepository @Inject constructor(val loggerService: LoggerService) {
+
+    fun save(name: String, email: String) {
+        Log.d(TAG, "save: name:$name | email:$email")
+        loggerService.log("User Saved in DB")
+    }
+}
+```
+
+```kotlin
+@AndroidEntryPoint
+class MainActivity : AppCompatActivity() {
+
+    @Inject
+    lateinit var userRepository: UserRepository /* Field Injection */
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+        
+        userRepository.save("Activity Test", "activity@email.com")
+    }
+}
+```
+
+## Hilt Modules
+
+### @Module: The “Recipe Book”
+
+A @Module is a specialized “instruction manual” class used to tell 
+Hilt how to provide objects that it cannot create automatically. 
+
+It is essential for providing instances of interfaces (which have no constructor) 
+or classes from external libraries (whose code you cannot modify).
+
+In these cases, you can provide Hilt with binding information by using **Hilt modules**.
+
+> A Hilt module is a class that is annotated with `@Module`.
+It provides Hilt with instructions on how to create instances of types
+that can't be provided through constructor injection, such as interfaces or third-party classes.
+
+Inside a module, you write “recipes” using `@Provides` or `@Binds`
+to define exactly how these dependencies should be built and configured.
+
+### @InstallIn: “Defining the Visibility and Lifetime”
+
+**What it is**: Every Hilt Module must be annotated with `@InstallIn`. This tells Hilt which Android class (Component) will have access to these dependencies. 
+
+**Why we use it**: It controls the visibility and the lifetime of the objects. 
+
+If you install a module in the `ActivityComponent`, 
+those objects will only be available in Activities and will die when the Activity is destroyed.
+
+> You **must** annotate every module with `@InstallIn` to tell Hilt which Android class
+each module will be used or installed in.
+>
+> Dependencies that you provide in Hilt modules are available in all generated components that are associated
+with the Android class where you install the Hilt module.
+
+#### Hilt Components and Their Lifecycles
+
+Hilt provides a set of built-in components that correspond to the lifecycle of an Android application. 
+Here are the most common ones:
+
+##### A. SingletonComponent (Application Level)
+
+Dependencies in this component are created when the app starts and live until the app process is killed.
+
+**Use Case**: Network clients (Retrofit), Databases (Room), Shared Preferences.
+
+##### B. ActivityComponent (Activity Level)
+
+Dependencies live as long as the specific Activity is alive. 
+
+They are recreated if the Activity is recreated (unless it’s a retained component).
+
+**Use Case**: Screen navigators, specific UI helpers.
+
+##### C. ViewModelComponent (ViewModel Level)
+
+This component follows the lifecycle of a ViewModel. 
+
+It survives configuration changes (like screen rotation).
+
+**Use Case**: Repositories, UseCases, or state handlers.
+
+> Any dependency declared in a top-level component, 
+such as `SingletonComponent`, is automatically accessible to all lower-level components in the hierarchy.
+
+For more info, check [Generated components for Android classes](#generated-components-for-android-classes)
+
+### @Provides (The Recipe)
+
+Inside a `@Module`, you use `@Provide`s for methods that return a specific dependency. 
+This is where you write the actual `new ClassName()` logic that Hilt will automate.
+
+**Usage**: Inside `@Module` classes.
+
+**What it does**: Defines how to return an instance of a type that Hilt doesn’t know how to build automatically.
+
+```kotlin
+interface UserRepository {
+    fun save(name: String, email: String)
+}
+
+class SQLRepository @Inject constructor(): UserRepository {
+
+    override fun save(name: String, email: String) {
+        Log.d(TAG, "SQLRepository: save: name:$name | email:$email")
+    }
+}
+
+class FirebaseRepository: UserRepository {
+
+    override fun save(name: String, email: String) {
+        Log.d(TAG, "FirebaseRepository: save: name:$name | email:$email")
+    }
+}
+
+@Module
+@InstallIn(ActivityComponent::class)
+class UserModule {
+
+    /**
+     * The @Provides annotated function supplies the following information to Hilt:
+     *
+     * The function return type tells Hilt what type the function provides instances of.
+     * The function parameters tell Hilt the dependencies of the corresponding type.
+     * The function body tells Hilt how to provide an instance of the corresponding type. Hilt executes the function body every time it needs to provide an instance of that type.
+     */
+    @Provides
+    fun getUserRepository(): UserRepository {
+        return FirebaseRepository()
+    }
+}
+```
+
+```kotlin
+@AndroidEntryPoint
+class MainFragment : Fragment() {
+
+    @Inject
+    lateinit var userRepository: UserRepository /* Accessible */
+}
+
+@AndroidEntryPoint
+class MainActivity : AppCompatActivity() {
+
+    @Inject
+    lateinit var userRepository: UserRepository /* Accessible */
+}
+
+@HiltAndroidApp
+class MyApplication: Application() {
+
+    @Inject
+    lateinit var userRepository: UserRepository /* UserRepository won't be accessible here since, UserModule is Installed in ActivityScope */
+}
+```
+
+### @Binds (The Interface Specialist)
+
+**What it is**: A specialized version of `@Provides` used specifically for interfaces. 
+
+**Why we use it**: While `@Provides` tells Hilt how to create an instance, 
+`@Binds` tells Hilt which implementation to use when an interface is requested. 
+
+It is more performant because Hilt doesn't generate a separate factory class for it.
+
+> The @Binds annotation tells Hilt which implementation to use when it needs to provide an instance of an interface.
+
+```kotlin
+@Module
+@InstallIn(ActivityComponent::class)
+class UserModule {
+
+    @Provides
+    fun getUserRepository(sqlRepository: SQLRepository): UserRepository {
+        return sqlRepository
+    }
+}
+
+// Can be written as
+
+@Module
+@InstallIn(ActivityComponent::class)
+abstract class UserModule {
+
+    /**
+     * The @Binds annotated function provides the following information to Hilt:
+     *
+     * The function return type tells Hilt what interface the function provides instances of.
+     * The function parameter tells Hilt which implementation to provide.
+     */
+    @Binds
+    abstract fun bindUserRepository(sqlRepository: SQLRepository): UserRepository
+}
+```
+
+> Note that function and class is `abstract` because we don't need the implementation in the function.
+> 
+> Hilt already knows how to create `SQLRepository` object, Hilt just binds `UserRepository` where ever it is needed.
+
+### @Qualifier (The Conflict Resolver)
+
+**What it is**: A custom “label” you create to distinguish between different versions of the same class. 
+
+**Why we use it**: If you have two ways to provide a UserModule, Hilt will get confused. Qualifiers tell Hilt exactly which "flavor" of the dependency you want to inject.
+
+```kotlin
+// Provide multiple bindings for the same type
+
+@Module
+@InstallIn(ActivityComponent::class)
+class UserModule {
+
+    @Provides
+    fun getSqlRepository(sqlRepository: SQLRepository): UserRepository {
+        return sqlRepository
+    }
+    
+    @Provides
+    fun getFirebaseRepository(): UserRepository {
+        return FirebaseRepository()
+    }
+}
+```
+
+This will generate compilation error, since two functions return UserRepository.
+
+> In cases where you need Hilt to provide different implementations of the same type as dependencies, 
+> you must provide Hilt with multiple bindings. 
+> 
+> You can define multiple bindings for the same type with **qualifiers**.
+
+A qualifier is an annotation that you use to identify a specific binding for a type when that type has multiple bindings defined.
+
+First, define the qualifiers that you will use to annotate the `@Provides` or `@Binds` methods:
+
+```kotlin
+@Qualifier
+@Retention(AnnotationRetention.BINARY)
+annotation class SqlQualifier
+
+@Qualifier
+@Retention(AnnotationRetention.BINARY)
+annotation class FirebaseQualifier
+```
+
+Then, Hilt needs to know how to provide an instance of the type that corresponds with each qualifier. 
+In this case, you could use a Hilt module with `@Provides`. 
+Both methods have the same return type, 
+but the qualifiers label them as two different bindings:
+
+```kotlin
+@Module
+@InstallIn(ActivityComponent::class)
+class UserModule {
+
+    @Provides
+    @SqlQualifier
+    fun getSqlRepository(sqlRepository: SQLRepository): UserRepository {
+        return sqlRepository
+    }
+
+    @Provides
+    @FirebaseQualifier
+    fun getFirebaseRepository(): UserRepository {
+        return FirebaseRepository()
+    }
+}
+```
+
+You can inject the specific type that you need by annotating the field or parameter with the corresponding qualifier:
+
+```kotlin
+@AndroidEntryPoint
+class MainActivity : AppCompatActivity() {
+
+    @Inject
+    @FirebaseQualifier
+    lateinit var userRepository: UserRepository /* Will get FirebaseRepository */
+}
+
+@AndroidEntryPoint
+class MainFragment : Fragment() {
+
+    @Inject
+    @SqlQualifier
+    lateinit var userRepository: UserRepository /* Will get SqlRepository */
+}
+```
+
+#### Predefined qualifiers in Hilt
+
+**What it is**: Built-in labels provided by Hilt to inject the Android Context. 
+
+**Why we use it**: Passing the wrong context can cause memory leaks. 
+These annotations ensure you get the correct context type safely.
+
+For example, as you might need the Context class from either the application or the activity,
+Hilt provides the `@ApplicationContext` and `@ActivityContext` qualifiers.
+
+```kotlin
+// Use @ApplicationContext for long-lived components (Databases, Prefs)
+class PreferencesManager @Inject constructor(
+    @ApplicationContext private val context: Context
+)
+
+// Use @ActivityContext for UI-related tasks (Dialogs, Toasts)
+class DialogHelper @Inject constructor(
+    @ActivityContext private val context: Context
+)
+```
+
+## Generated components for Android classes
+
+### Scope Annotations
+
+**What it is**: Scope annotations are keywords used to define the “lifetime” or “lifecycle” of a dependency within your application. 
+By default, all bindings in Hilt are unscoped, 
+meaning Hilt creates a new instance of the requested type every single time it is needed as a dependency.
+
+If you leave out the scope annotation, 
+Hilt executes the code inside your `@Provides` block every single time that dependency is requested.
+
+#### The “Unscoped” Scenario (The Mistake)
+
+In this case, Hilt treats the `@Provides` method like a regular factory function that it calls repeatedly.
+
+```kotlin
+@Module
+@InstallIn(SingletonComponent::class)
+object NetworkModule {
+
+    // MISSING @Singleton
+    @Provides
+    fun provideRetrofit(): Retrofit {
+        println("Hilt: Creating a brand new Retrofit instance!") 
+        return Retrofit.Builder()
+            .baseUrl("https://api.example.com")
+            .build()
+    }
+}
+```
+
+By adding `@Singleton`, Hilt creates the object once, saves it in the SingletonComponent, 
+and gives that exact same memory address to everyone who asks for it.
+
+##### Why and how we use Scope Annotations:
+
+We use scope annotations to “cache” an object so that the same instance 
+is reused across multiple requests within a specific lifecycle. 
+
+When a binding is scoped to a particular component, 
+Hilt creates that instance only once per instance of that component, 
+and all subsequent requests for that binding share that same instance.
+
+### Component vs Scope
+
+In Hilt, there is a strict **one-to-one relationship** where each component 
+only manages its specific matching scope; therefore, 
+you cannot use `@ActivityScoped` inside a `SingletonComponent` because their lifecycles do not match. 
+
+You must always pair the scope with its corresponding "lifetime bucket," 
+such as using `@Singleton` for the app-level `SingletonComponent` and `@ActivityScoped` only within the `ActivityComponent`.
+
+```kotlin
+@Module
+@InstallIn(SingletonComponent::class) // 1. Installed in the App-level container
+object ModernPhoneModule {
+
+    /**
+     * @Singleton: Shared globally.
+     * We provide the Database here because we only ever want one instance
+     * for the entire app to save memory and ensure data consistency.
+     */
+    @Provides
+    @Singleton 
+    fun provideAppDatabase(@ApplicationContext context: Context): AppDatabase {
+        return Room.databaseBuilder(
+            context,
+            AppDatabase::class.java, "phone_db"
+        ).build()
+    }
+
+    /**
+     * @ViewModelScoped: Shared within a ViewModel.
+     * We install this in the ViewModelComponent (see note below).
+     * It ensures the StateLoader survives screen rotations.
+     */
+    // Note: To use @ViewModelScoped, this would typically be in a module 
+    // annotated with @InstallIn(ViewModelComponent::class)
+}
+
+@Module
+@InstallIn(ActivityComponent::class) // 2. Installed in the Activity-level container
+object ActivityUiModule {
+
+    /**
+     * @ActivityScoped: Shared within a single Activity.
+     * The Navigator needs an Activity context. If this were a Singleton, it would cause a memory leak. 
+     * Here, it dies when the Activity dies.
+     */
+    @Provides
+    @ActivityScoped
+    fun providePhoneNavigator(@ActivityContext context: Context): PhoneNavigator {
+        return PhoneNavigator(context)
+    }
+}
+```
+
+**Component (`@InstallIn`)**: This defines the Visibility/Access. 
+It sets the "boundary" for which Android classes (Application, Activity, etc.) can reach in and grab that dependency.
+
+**Scope**: This defines the Lifecycle/Duration. 
+It tells Hilt to “cache” the object so it stays alive as long as that specific component instance exists.
+
+Component decides _who_ sees it, and Scope decides _how long_ it lives.
+
+### Component Hierarchy
+
+It is where dependencies flow strictly from parents down to children, 
+allowing lower-level components to access bindings from those above them.
+
+It also defines the mandatory pairing between each **Hilt Component** (which controls visibility) 
+and its corresponding **Scope Annotation** (which controls the object’s lifetime).
+
+![component-hierarchy.svg](component-hierarchy.svg){ height=700 }
+
+> The Hilt component hierarchy dictates that dependencies flow downward, 
+> meaning any binding installed in a parent component like the `ActivityComponent` 
+> is automatically visible to and shared by its child components, such as fragments and views.
+
+### Component lifetimes
+
+The lifetime of a component is important because it relates to the lifetime of your bindings in two important ways:
+- It bounds the lifetime of scoped bindings between when the component is created and when it is destroyed.
+- It indicates when members injected values can be used (e.g. when @Inject fields are not null).
+
+Component lifetimes are generally bounded by the creation and destruction of a corresponding instance of an Android class. 
+The table below lists the scope annotation and bounded lifetime for each component.
+
+| Component                   | Scope                     | Created At               | Destroyed At                     |
+|-----------------------------|---------------------------|--------------------------|----------------------------------|
+| `SingletonComponent`        | `@Singleton`              | `Application#onCreate()` | Application process is destroyed |
+| `ActivityRetainedComponent` | `@ActivityRetainedScoped` | `Activity#onCreate()`    | `Activity#onDestroy()`           |
+| `ViewModelComponent`        | `@ViewModelScoped`        | ViewModel created        | ViewModel destroyed              |
+| `ActivityComponent`         | `@ActivityScoped`         | `Activity#onCreate()`    | `Activity#onDestroy()`           |
+| `FragmentComponent`         | `@FragmentScoped`         | `Fragment#onAttach()`    | `Fragment#onDestroy()`           |
+| `ServiceComponent`          | `@ServiceScoped`          | `Service#onCreate()`     | `Service#onDestroy()`            |
+
+> `ActivityRetainedComponent` lives across configuration changes, so it is created at the first `onCreate` and last `onDestroy`.
+
+### Component default bindings
+
+Each Hilt component comes with a set of default bindings
+that can be injected as dependencies into your own custom bindings. 
+
+Each component listed has the corresponding default bindings
+as well as any default bindings from an ancestor component.
+
+| Android component           | Default bindings                         |
+|-----------------------------|------------------------------------------|
+| `SingletonComponent`        | `Application`                            |
+| `ActivityRetainedComponent` | `ActivityRetainedLifecycle`              |
+| `ViewModelComponent`        | `SavedStateHandle`, `ViewModelLifecycle` |
+| `ActivityComponent`         | `Activity`, `FragmentActivity`           |
+| `FragmentComponent`         | `Fragment`                               |
+| `ServiceComponent`          | `Application`, `Service`                 |
+
+The application context binding is also available using `@ApplicationContext`. For example:
+
+```kotlin
+class AnalyticsServiceImpl @Inject constructor(
+  @ApplicationContext context: Context
+) : AnalyticsService { ... }
+
+// The Application binding is available without qualifiers.
+class AnalyticsServiceImpl @Inject constructor(
+  application: Application
+) : AnalyticsService { ... }
+```
+
+```kotlin
+class AnalyticsAdapter @Inject constructor(
+  @ActivityContext context: Context
+) { ... }
+
+// The Activity binding is available without qualifiers.
+class AnalyticsAdapter @Inject constructor(
+  activity: ComponentActivity
+) { ... }
+```
+
+## @HiltViewModel
+
+The `@HiltViewModel` annotation is a specialized version of Hilt injection designed specifically for Android **ViewModels**.
+
+It tells Hilt: “This class is a ViewModel, 
+and I want you to provide its dependencies 
+and handle its creation so I don’t have to use a custom ViewModelFactory.”
+
+### Why We Use HiltViewModel?
+
+In standard Android, ViewModels require a `ViewModelProvider.Factory` if they have parameters in their constructor. 
+Hilt removes this boilerplate entirely.
+
+**Automatic Injection**: It identifies which dependencies (like repositories or use cases) need to be injected into the ViewModel’s constructor.
+
+**Lifecycle Awareness**: Hilt ensures the ViewModel is scoped correctly to the Activity or Fragment that requests it.
+
+**SavedStateHandle Support**: It automatically allows you to inject a SavedStateHandle to survive process death without any extra configuration.
+
+```kotlin
+@HiltViewModel
+class PhoneViewModel @Inject constructor(
+    private val repository: PhoneRepository, // Hilt injects this automatically
+    private val savedStateHandle: SavedStateHandle // Hilt provides this for state restoration
+) : ViewModel() {
+    
+    fun makeCall(contactName: String) {
+        repository.startCall(contactName)
+    }
+}
+```
+
+Before Hilt, you had to write a lot of code (Factories) to pass arguments to a ViewModel. 
+With `@HiltViewModel`, you simply mark the class, and Hilt handles the rest.
+
+## @EntryPoint (The Emergency Bridge)
+
+**What it is**: A manual access point to the Hilt dependency graph.
+
+**Why we use it**: Some classes (like Content Providers or certain 3rd party libraries) do not support `@AndroidEntryPoint`. 
+An **Entry Point** allowEntry Points you to "manually reach in" and grab a dependency when automatic injection is impossible.
+
+### Why do we need EntryPoints
+
+In a perfect Hilt world, we use Constructor Injection. 
+However, this is only possible if Hilt “owns” the creation of the class.
+
+#### 1. Internal Classes (e.g., Repository)
+
+Hilt is the “Boss” of your internal classes. 
+Because Hilt creates the instance, it can easily “inject” dependencies through the constructor.
+
+#### 2. System Components (e.g., Content Provider)
+
+Classes like ContentProvider or certain 3rd-party libraries are owned by the Android OS or external code.
+
+> The Android OS uses Reflection to start these classes and it strictly expects a zero-argument (empty) constructor.
+> 
+> If you add a parameter to the constructor, the OS won’t know how to provide it, and your app will Crash.
+> 
+> ❌ Constructor Injection is impossible.
+
+### The Solution: @EntryPoint
+
+Since we cannot use `@Inject constructor` for system-managed classes, we use an **EntryPoint** as a bridge. 
+
+We leave the constructor empty and manually "reach in" to Hilt's storage to grab what we need.
+
+```kotlin
+/**
+ * PART 1: THE RECIPIENT (The Class Hilt cannot reach)
+ * This is a ContentProvider. Since it is managed by the Android OS, 
+ * we cannot use @Inject constructor. We must manually pull our dependencies.
+ */
+class MyContentProvider : ContentProvider() {
+
+    override fun onCreate(): Boolean = true
+
+    override fun query(...): Cursor? {
+        // Use the Accessor to reach into the SingletonComponent
+        val hiltBridge = EntryPointAccessors.fromApplication(
+            context?.applicationContext!!,
+            MyBridgeInterface::class.java
+        )
+
+        val repository = hiltBridge.getMyRepository()
+        repository.fetchData()
+        
+        return null
+    }
+
+    // Other ContentProvider methods...
+}
+
+/**
+ * PART 2: THE ENTRY POINT (The Bridge)
+ * This interface tells Hilt which dependencies we need to access from the SingletonComponent manually.
+ */
+@EntryPoint
+@InstallIn(SingletonComponent::class)
+interface MyBridgeInterface {
+    fun getMyRepository(): MyRepository
+}
+
+/**
+ * PART 3: THE PROVIDER (The Module)
+ * A standard Hilt module telling Hilt how to create the Repository.
+ */
+@Module
+@InstallIn(SingletonComponent::class)
+object RepositoryModule {
+    @Provides
+    @Singleton
+    fun provideRepository(): MyRepository = MyRepository()
+}
+
+// Dummy Repository Class
+class MyRepository {
+    fun fetchData() = println("Data fetched from Hilt via EntryPoint!")
+}
+```

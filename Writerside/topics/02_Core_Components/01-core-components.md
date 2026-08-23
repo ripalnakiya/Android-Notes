@@ -1,4 +1,5 @@
-# App Components
+# Core Components
+<show-structure depth="2"/>
 
 App components are the essential **building blocks** of an Android app.
 

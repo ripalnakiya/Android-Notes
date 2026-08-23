@@ -1,4 +1,5 @@
 # Intent
+<show-structure depth="2"/>
 
 It is a **message object** used to request an operation or to communicate between components in an Android application.
 

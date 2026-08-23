@@ -1,4 +1,5 @@
 # Services
+<show-structure depth="2"/>
 
 A Service is an Android component that performs **long-running operations** in the **background** 
 or exposes functionality to other components, without a user interface.

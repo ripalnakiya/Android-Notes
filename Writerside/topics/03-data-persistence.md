@@ -1,4 +1,5 @@
 # Data Persistence
+<show-structure depth="2"/>
 
 - File I/O
 - Shared Preferences

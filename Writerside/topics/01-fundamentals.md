@@ -1,4 +1,5 @@
 # Fundamentals
+<show-structure depth="2"/>
 
 Android is an **open-source operating system** primarily designed for mobile devices such as smartphones and tablets.
 

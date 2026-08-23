@@ -1,4 +1,5 @@
 # API Keys
+<show-structure depth="2"/>
 
 ## Using local.properties
 

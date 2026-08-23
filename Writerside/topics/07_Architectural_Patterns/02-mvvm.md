@@ -1,4 +1,5 @@
 # MVVM
+<show-structure depth="2"/>
 
 ## 1. Model
 

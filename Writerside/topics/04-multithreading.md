@@ -1,4 +1,5 @@
 # Multithreading
+<show-structure depth="2"/>
 
 - Android has one sacred UI thread (aka main thread).
   - Draw UI

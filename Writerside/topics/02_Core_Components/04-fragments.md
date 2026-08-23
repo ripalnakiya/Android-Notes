@@ -1,4 +1,5 @@
 # Fragments
+<show-structure depth="2"/>
 
 - A Fragment:
   - Is a modular and reusable piece of UI

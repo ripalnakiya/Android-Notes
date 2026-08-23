@@ -1,4 +1,5 @@
 # Performance Issues
+<show-structure depth="2"/>
 
 ## 1. Crashes
 

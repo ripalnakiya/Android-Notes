@@ -1,4 +1,5 @@
 # Activities
+<show-structure depth="2"/>
 
 - An Activity:
   - Represents one UI screen

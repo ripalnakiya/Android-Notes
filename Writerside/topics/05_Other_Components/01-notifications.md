@@ -1,4 +1,5 @@
 # Notifications
+<show-structure depth="2"/>
 
 Notifications are a way for apps to **alert users about important events or 
 information** even when the app is not actively in use.

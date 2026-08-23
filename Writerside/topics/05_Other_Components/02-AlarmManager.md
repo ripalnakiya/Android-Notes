@@ -1,4 +1,5 @@
 # AlarmManager
+<show-structure depth="2"/>
 
 AlarmManager schedules time-based operations. You tell Android:
 

@@ -1,4 +1,5 @@
 # Architectural Patterns
+<show-structure depth="2"/>
 
 - Architecture patterns mainly focuses on:
   - Separation of concerns

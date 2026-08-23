@@ -1,4 +1,5 @@
 # Content Providers
+<show-structure depth="2"/>
 
 A Content Provider is Android’s **standardized data-sharing layer**.
 

@@ -1,4 +1,5 @@
 # Reducing App Size
+<show-structure depth="2"/>
 
 To make your app as small as possible,
 you should enable `shrinking` in your release build to remove unused code and resources.

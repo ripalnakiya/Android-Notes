@@ -3,12 +3,13 @@
         SYSTEM "https://resources.jetbrains.com/writerside/1.0/product-profile.dtd">
 
 <instance-profile id="an"
-                 name="Android Notes"
-                 start-page="01-fundamentals.md">
+                  name="Android Notes"
+                  start-page="01-fundamentals.md">
 
     <toc-element topic="01-fundamentals.md"/>
 
-    <toc-element topic="01-core-components.md">
+    <toc-element toc-title="App Components">
+        <toc-element topic="01-core-components.md"/>
         <toc-element topic="02-intents.md"/>
         <toc-element topic="03-activities.md"/>
         <toc-element topic="04-fragments.md"/>
@@ -17,20 +18,14 @@
         <toc-element topic="07-content-providers.md"/>
     </toc-element>
 
-    <toc-element topic="01-data-persistence.md">
-        <toc-element topic="02-roomDB.md"/>
-    </toc-element>
+    <toc-element topic="03-data-persistence.md"/>
 
-    <toc-element topic="01-multithreading.md">
-        <toc-element topic="02-AsyncTask.md"/>
-    </toc-element>
+    <toc-element topic="04-multithreading.md"/>
 
     <toc-element toc-title="Other Components">
-        <toc-element topic="01-button-listeners.md"/>
-        <toc-element topic="02-dialogs.md"/>
-        <toc-element topic="03-notifications.md"/>
-        <toc-element topic="04-AlarmManager.md"/>
-        <toc-element topic="05-WorkManager.md"/>
+        <toc-element topic="01-notifications.md"/>
+        <toc-element topic="02-AlarmManager.md"/>
+        <toc-element topic="03-WorkManager.md"/>
     </toc-element>
 
     <toc-element toc-title="Performance &amp; Security">
@@ -40,11 +35,21 @@
         <toc-element topic="04-reducing-app-size.md"/>
     </toc-element>
 
-    <toc-element topic="01-architectural-patterns.md">
+    <toc-element toc-title="App Architecture">
+        <toc-element topic="01-architectural-patterns.md"/>
         <toc-element topic="02-mvvm.md"/>
         <toc-element topic="03-design-principles.md"/>
     </toc-element>
 
     <toc-element topic="08-jni.md"/>
+
+    <toc-element toc-title="Dependency Injection">
+        <toc-element topic="01-basics.md"/>
+        <toc-element topic="02-annotations.md"/>
+    </toc-element>
+
+    <toc-element toc-title="Jetpack Compose">
+        <toc-element topic="01-compose-introduction.md"/>
+    </toc-element>
 
 </instance-profile>

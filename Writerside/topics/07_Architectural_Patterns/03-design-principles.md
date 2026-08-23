@@ -1,4 +1,5 @@
 # Design Principles
+<show-structure depth="2"/>
 
 These are fundamental software design metrics or properties used to evaluate code structure.
 

@@ -1,4 +1,5 @@
 # Broadcast Receivers
+<show-structure depth="2"/>
 
 - A **BroadcastReceiver** is an Android component that:
   - Listens for broadcast messages (called _Intents_)

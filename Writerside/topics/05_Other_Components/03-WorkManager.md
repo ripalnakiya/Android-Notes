@@ -1,4 +1,5 @@
 # WorkManager
+<show-structure depth="2"/>
 
 WorkManager is the recommended solution for **persistent work**.
 
