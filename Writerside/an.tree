@@ -51,6 +51,8 @@
 
     <toc-element topic="09-di.md"/>
 
+    <toc-element topic="10-kotlin-guide.md"/>
+
     <toc-element toc-title="Jetpack Compose">
         <toc-element topic="01-compose-introduction.md"/>
     </toc-element>
