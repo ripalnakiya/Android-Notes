@@ -28,6 +28,18 @@
         <toc-element topic="03-WorkManager.md"/>
     </toc-element>
 
+    <toc-element toc-title="Architecture Components">
+        <toc-element topic="01-introduction-to-architecture-components.md"/>
+        <toc-element topic="02-view-model.md"/>
+        <toc-element topic="03-live-data.md"/>
+        <toc-element topic="04-data-binding.md"/>
+        <toc-element topic="05-room-db.md"/>
+        <toc-element topic="06-repository-pattern.md"/>
+        <toc-element topic="07-android-architecture-patterns.md"/>
+        <toc-element topic="08-retrofit.md"/>
+        <toc-element topic="09-error-handling.md"/>
+    </toc-element>
+
     <toc-element toc-title="Performance &amp; Security">
         <toc-element topic="01-performance-issues.md"/>
         <toc-element topic="02-permissions.md"/>
@@ -35,18 +47,9 @@
         <toc-element topic="04-reducing-app-size.md"/>
     </toc-element>
 
-    <toc-element toc-title="App Architecture">
-        <toc-element topic="01-architectural-patterns.md"/>
-        <toc-element topic="02-mvvm.md"/>
-        <toc-element topic="03-design-principles.md"/>
-    </toc-element>
-
     <toc-element topic="08-jni.md"/>
 
-    <toc-element toc-title="Dependency Injection">
-        <toc-element topic="01-basics.md"/>
-        <toc-element topic="02-annotations.md"/>
-    </toc-element>
+    <toc-element topic="09-di.md"/>
 
     <toc-element toc-title="Jetpack Compose">
         <toc-element topic="01-compose-introduction.md"/>
