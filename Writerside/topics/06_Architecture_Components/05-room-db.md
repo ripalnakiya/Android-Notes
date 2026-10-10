@@ -175,7 +175,7 @@ It needs to have schema of older version to compare with newer version and find 
 
 > Define **room3** plugin in **libs.versions.toml**
 > 
-> ```toml
+> ```text
 > [versions]
 > # ...
 > room3 = "3.0.2"

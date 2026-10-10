@@ -5,7 +5,7 @@
 
 ## Add dependencies
 
-```TOML
+```text
 [versions]
 // ...
 retrofit = "3.1.0"
