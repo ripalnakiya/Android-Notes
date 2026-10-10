@@ -1,6 +1,8 @@
 # Android Architecture Patterns
 <show-structure depth="2"/>
 
+A good app architecture can make your code robust, flexible, scalable, testable, and maintainable for years to come.
+
 Need of Architecture:
 - Scalability & Maintainability of application
 - To achieve this - we implement architecture patterns - MVC, MVP, MVVM etc.

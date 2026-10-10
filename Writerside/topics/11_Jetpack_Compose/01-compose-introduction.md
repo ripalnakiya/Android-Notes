@@ -7,8 +7,8 @@
 
 ## Imperative vs Declarative
 
-**Imperative** = “How to do it”
-**Declarative** = “What it should look like”
+- **Imperative** = “How to do it”
+- **Declarative** = “What it should look like”
 
 ### Imperative UI
 
@@ -55,8 +55,13 @@ Button(onClick = { clicked = true }) {
 | State Handling | Messy, scattered             | Centralized                |
 | Bugs           | Easy to miss updates         | Easier to reason           |
 
-**Imperative:** Change state → YOU update UI
-**Declarative:** Change state → UI updates itself
+- **Imperative:** Change state → YOU update UI
+- **Declarative:** Change state → UI updates itself
+
+> Jetpack Compose is built around composable functions. 
+> 
+> These functions let you define your app's UI programmatically by describing how it should look, 
+> rather than focusing on the process of the UI's construction.
 
 ## Composable function
 
@@ -73,14 +78,25 @@ fun Greeting(name: String) {
 
 **It’s more like:** A function that describes UI
 
+## State
+
+> A state is any value in an app that can change over time.
+
+All Android apps display state to the user.
+
+A few examples of state in Android apps include:
+- A message that shows when a network connection can't be established.
+- Forms, such as registration forms. The state can be filled and submitted.
+- Tappable controls, such as buttons.
+  - The state could be
+    - _not tapped_,
+    - _being tapped_ (display animation),
+    - _or tapped_ (an `onClick` action).
+
 ## Inheritance Tree
 
 - All the views inherit from the View class.
 - For large codebases, Inheritance becomes complex.
 
-Jetpack Compose chooses **composition over inheritance**. 
-That means we compose our UI by including different UI elements. 
-
-## Recomposition
-
-Whenever your state changes, it will recreate the UI.
+Jetpack Compose chooses **composition over inheritance**.
+That means we compose our UI by including different UI elements.

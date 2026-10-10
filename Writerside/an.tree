@@ -55,6 +55,10 @@
 
     <toc-element toc-title="Jetpack Compose">
         <toc-element topic="01-compose-introduction.md"/>
+        <toc-element topic="02-lifecycle-of-composable.md"/>
+        <toc-element topic="03-state-hoisting.md"/>
+        <toc-element topic="04-viewmodel-and-state-in-compose.md"/>
+        <toc-element topic="05-side-effects.md"/>
     </toc-element>
 
 </instance-profile>
