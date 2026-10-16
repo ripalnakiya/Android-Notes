@@ -72,3 +72,7 @@ SharedPreferences prefs = getSharedPreferences("login", MODE_PRIVATE);
 boolean check = sharedPreferences.getBoolean("flag", false);    
                                 // getBoolean(key, defaultValue)
 ```
+
+## DataStore
+
+[To Do](https://developer.android.com/topic/libraries/architecture/datastore)

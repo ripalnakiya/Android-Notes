@@ -1,4 +1,4 @@
-# Permissions
+# App Permissions
 <show-structure depth="2"/>
 
 App permissions help **support user privacy** by **protecting access** to the following:

@@ -1,12 +1,17 @@
 # Core Components
 <show-structure depth="2"/>
 
-App components are the essential **building blocks** of an Android app.
+App components are the essential building blocks of an Android app. 
+Each component is an **entry point** through which the **system or a user can enter your app**. 
+Some components depend on others.
 
-Each component is an **entry point through which the user can enter** your app.
+There are four types of app components:
+- Activities
+- Services
+- Broadcast receivers
+- Content providers
 
-There are **four** main components, 
-**Each type serves a distinct purpose and has a distinct lifecycle** 
+Each type serves a distinct purpose and has a distinct lifecycle 
 that defines how a component is created and destroyed.
 
 ## Context

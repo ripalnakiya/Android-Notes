@@ -4,6 +4,7 @@
 It is a **message object** used to request an operation or to communicate between components in an Android application.
 
 > They are message objects used to request an action from another app component.
+{style="note"}
 
 - With an Intent, we can:
   - Start an Activity
@@ -84,7 +85,7 @@ String Ibody = intent.getStringExtra(Intent.EXTRA_TEXT);
 
 ## Pending Intent
 
-A PendingIntent in android **is a token** that 
+A `PendingIntent` in android **is a token** that 
 you give to a **foreign application** (e.g., NotificationManager, AlarmManager, AppWidgetManager, etc.) 
 to allow it to execute a specific piece of code on your behalf.
 
@@ -97,3 +98,4 @@ PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, 0);
 ```
 
 > We can create a PendingIntent using methods like `getActivity()`, `getService()`, or `getBroadcast()` in the `PendingIntent` class.
+{style="note"}
