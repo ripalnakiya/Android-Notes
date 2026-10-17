@@ -31,6 +31,7 @@
         <toc-element topic="05-room-db.md"/>
         <toc-element topic="06-retrofit.md"/>
         <toc-element topic="07-error-handling.md"/>
+        <toc-element topic="08-work-manager.md"/>
     </toc-element>
 
     <toc-element toc-title="Performance &amp; Security">
@@ -43,8 +44,6 @@
         <toc-element topic="02-android-architecture-patterns.md"/>
         <toc-element topic="03-di.md"/>
     </toc-element>
-
-    <toc-element topic="09-work-manager.md"/>
 
     <toc-element topic="10-jni.md"/>
 
